@@ -1,8 +1,11 @@
 const handler = async (event, ctx) => {
+  console.log(event)
+  const body = event?.body ?? {}
+  const name = body?.name ?? "World"
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Hello from Lambda",
+      message: `Hello ${name}` 
     }),
   };
 };
