@@ -1,13 +1,23 @@
 const handler = async (event, ctx) => {
-  console.log(event)
-  const body = event?.body ?? {}
-  const name = body?.name ?? "World"
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Hello ${name}` 
-    }),
-  };
+  try {
+    const body = event?.body ?? {}
+    const name = body?.name ?? null
+    if (!name) {
+      throw new Error("Name parameter is required")
+    }
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `Hello ${name}`
+      })
+    }
+  } catch(error) {
+    console.error("Error", error.message)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({error: error.message})
+    }
+  }
 };
 
 module.exports = { handler }
