@@ -1,8 +1,12 @@
+const axios = require("axios")
+
 const handler = async (event, ctx) => {
+  const response = await axios.get("https://api.github.com")
+  console.log(response.data)
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Hello from Lambda",
+      data: response.data
     }),
   };
 };
